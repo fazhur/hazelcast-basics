@@ -11,8 +11,13 @@ def write_to_queue():
     my_queue.clear()
     for i in range(100):
         responce = my_queue.offer(i)
+        counter = 0
         while not responce:
+            counter += 1
             responce = my_queue.offer(i)
+            if counter >= 100:
+                print(f'Failed to insert value {i}')
+                break
         print(f'Inserted value {i}')
     client.shutdown()
 
